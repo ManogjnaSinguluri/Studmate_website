@@ -1,0 +1,7 @@
+print("Day:")
+print("6:30-7:30 PM :"," Apple1")
+print("7:30-8:30 PM :"," Apple2")
+print("9:30-10:30 PM:"," Apple3")
+print("6:30-7:30 AM:"," Apple4")
+print()
+print()

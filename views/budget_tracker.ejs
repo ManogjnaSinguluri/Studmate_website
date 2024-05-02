@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../styles/home.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  body {
+    background-color: #f3f5f9;
+  }
+  .wrapper {
+    display: flex;
+    position: relative;
+  }
+  .wrapper .sidebar {
+    width: 200px;
+    height: 100%;
+    background: #4b4276;
+    padding: 30px 0px;
+    position: fixed;
+  }
+
+  .wrapper .sidebar h2 {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .wrapper .sidebar ul li {
+    padding: 15px;
+    border-bottom: 1px solid #bdb8d7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .wrapper .sidebar ul li a {
+    color: #bdb8d7;
+    display: block;
+  }
+
+  .wrapper .sidebar ul li a .fas {
+    width: 25px;
+  }
+
+  .wrapper .sidebar ul li:hover {
+    background-color: #594f8d;
+  }
+
+  .wrapper .sidebar ul li:hover a {
+    color: #fff;
+  }
+
+  .wrapper .sidebar .social_media {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .wrapper .sidebar .social_media a {
+    display: block;
+    width: 40px;
+    background: #594f8d;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 5px;
+    color: #bdb8d7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+ /* General styles for main content */
+.wrapper .main_content {
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header {
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info {
+  margin: 20px;
+  color: #717171;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div {
+  margin-bottom: 20px;
+}
+
+/* Styles for the form */
+.wrapper .main_content .expenses-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%; /* Form takes up half the width */
+  margin: 0 auto; /* Center form horizontally */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+.wrapper .main_content .expenses-container form label {
+  margin-bottom: 5px;
+}
+
+.wrapper .main_content .expenses-container form input,
+.wrapper .main_content .expenses-container form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.wrapper .main_content .expenses-container button {
+  padding: 10px 20px;
+  background-color: #4b4276;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Styles for the table */
+.wrapper .main_content .expenses-containers ul {
+  list-style: none;
+  margin-top: 20px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.wrapper .main_content .expenses-containers li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: lavender; /* Background color for even rows */
+}
+
+.wrapper .main_content .expenses-containers li:nth-child(odd) {
+  background-color: #6c6196;  /* Background color for odd rows */
+}
+
+.wrapper .main_content .expenses-containers .expense-name {
+  flex: 1; /* Allow text to fill remaining space */
+  margin-left: relative;
+}
+
+.wrapper .main_content .expenses-containers .expense-amount {
+  margin-left: relative; /* Aligns content to the extreme right */
+  min-width: 100px; /* Ensures content doesn't collapse */
+}
+
+
+
+
+/* Styles for the pie chart container */
+.wrapper .main_content .pie-chart-container {
+  width: 50%; /* Pie chart takes up half the width */
+  margin: 0 auto; /* Center chart horizontally */
+  margin-top: 20px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .wrapper .main_content {
+    flex-direction: column; /* Stack content on small screens */
+  }
+
+  .wrapper .main_content .expenses-container {
+    width: 50%; /* Form and chart take full width on small screens */
+  }
+
+  .wrapper .main_content .expenses-container form,
+  .wrapper .main_content .expenses-container .piechart-container {
+    width: 50%; /* Form and chart take full width on small screens */
+    margin: 0 auto; /* Maintain centering on small screens */
+  }
+}
+
+</style>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<body>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Studmate</h2>
+      <ul>
+        <li><a href="/home?user=<%= JSON.stringify(user) %>"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="/profile?user=<%= JSON.stringify(user) %>"><i class="fas fa-user"></i>Profile</a></li>
+        <li><a href="/library?user=<%= JSON.stringify(user) %>"><i class="fas fa-book-reader"></i>library</a></li>
+        <li><a href="/study_planner?user=<%= JSON.stringify(user) %>"><i class="fas fa-project-diagram"></i>Study Planner</a></li>
+        <li><a href="/budget_tracker?user=<%= JSON.stringify(user) %>"><i class="fas fa-balance-scale"></i>budget tracker</a></li>
+        <li><a href="/flash_cards?user=<%= JSON.stringify(user) %>"><i class="fas fa-star"></i>Flash Cards</a></li>
+      </ul>
+      <div class="social_media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+      <div class="main_content">
+        <div class="piechart_container" id="piechart_container">
+          <canvas id="expensePieChart" width="400" height="400"></canvas>
+        </div>
+        <div class="expenses-containers">
+          <% if (expenses.length > 0) { %>
+          <ul>
+            <% expenses.forEach(expense => { %>
+              <li>
+                <span class="expense-name"><%= expense.exp_name %></span>
+                <span class="expense-amount"><%= expense.amount %>/-</span>
+              </li>
+            <% }) %>
+          </ul>
+          <% }else { %>
+            <p>You don't have any expenses yet.</p>
+          <% } %>
+        </div>
+        
+        <h2>Add Expense</h2>
+        <div class="expenses-container">
+  
+          <form action="/add_expense?user=<%= JSON.stringify(user) %>" method="POST">
+            <label for="ExpenseName">Expense Name:</label>
+          
+            <input type="text" name="ExpenseName" id="ExpenseName" required>
+            <label for="Amount">Spent Amount:</label>
+            <input type="number" name="Amount" id="Amount" required>
+            <label for="folderName">Choose an Option:</label>
+            <select name="Amount_category" id="Amount_category" required>
+              <option value="">Select an option...</option>
+              <option value="Food">Food</option>
+              <option value="Travel">Travel</option>
+              <option value="Amenities">Amenities</option>
+              <option value="Other">Other</option>
+            </select>
+            <button type="submit">Add Expense</button>
+          </form>
+        </div>
+       
+
+  
+      
+      </div>
+
+    
+
+    
+
+     
+
+
+  </div> 
+    <script>
+        // Define categoriesArray and categoryTotalsArray here
+  const categoriesArray = <%- JSON.stringify(categoriesArray) %>;
+  const categoryTotalsArray = <%- JSON.stringify(categoryTotalsArray) %>;
+
+  // Create a pie chart
+       const expenses = [
+        { category: "Food", amount: 200 },
+        { category: "Travel", amount: 100 },
+      ];
+  
+      // Extract category names and amounts
+
+      const categories = expenses.map(expense => expense.category);
+      const amounts = expenses.map(expense => expense.amount);
+      console.log(categories)
+      console.log(amounts)
+      console.log(categoriesArray)
+      // Create a pie chart
+      const ctx = document.getElementById('expensePieChart').getContext('2d');
+      const expensePieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: categoriesArray,
+          datasets: [{
+            label: 'Expenses by Category',
+            data: categoryTotalsArray,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Expenses by Category'
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

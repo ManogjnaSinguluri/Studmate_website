@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../styles/home.css"/>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  body {
+    background-color: #f3f5f9;
+  }
+
+  .wrapper {
+    display: flex;
+    position: relative;
+  }
+
+  .wrapper .sidebar {
+    width: 200px;
+    height: 100%;
+    background: #4b4276;
+    padding: 30px 0px;
+    position: fixed;
+  }
+
+  .wrapper .sidebar h2 {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .wrapper .sidebar ul li {
+    padding: 15px;
+    border-bottom: 1px solid #bdb8d7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .wrapper .sidebar ul li a {
+    color: #bdb8d7;
+    display: block;
+  }
+
+  .wrapper .sidebar ul li a .fas {
+    width: 25px;
+  }
+
+  .wrapper .sidebar ul li:hover {
+    background-color: #594f8d;
+  }
+
+  .wrapper .sidebar ul li:hover a {
+    color: #fff;
+  }
+
+  .wrapper .sidebar .social_media {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+
+  .wrapper .sidebar .social_media a {
+    display: block;
+    width: 40px;
+    background: #594f8d;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 5px;
+    color: #bdb8d7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .wrapper .main_content {
+    width: 100%;
+    margin-left: 200px;
+  }
+
+  .wrapper .main_content .header {
+    padding: 20px;
+    background: #fff;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+  }
+
+  .wrapper .main_content .info {
+    margin: 20px;
+    color: #717171;
+    line-height: 25px;
+  }
+
+  .wrapper .main_content .info div {
+    margin-bottom: 20px;
+  }
+  .wrapper .main_content .folders-container {
+    margin: 20px;
+    color: #717171;
+    line-height: 25px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .wrapper .main_content .folders-container ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .wrapper .main_content .folders-container ul li {
+    width: 100px; /* Each deck occupies 1/4 of the main_content width */
+    height: 100px; /* Adjust min-height as needed */
+   
+  
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .wrapper .main_content .folders-container ul li a {
+    text-decoration: none;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .wrapper .main_content .folders-container ul li i {
+    font-size: 450%; /* Increase icon size by 5 times */
+    margin-bottom: 10px;
+  }
+  
+  
+  .wrapper .main_content .add-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #ae00ff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  text-align: center;
+  line-height: 50px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  }
+
+ 
+</style>
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<body>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Studmate</h2>
+      <ul>
+        <li><a href="/home?user=<%= JSON.stringify(user) %>"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="/profile?user=<%= JSON.stringify(user) %>"><i class="fas fa-user"></i>Profile</a></li>
+        <li><a href="/library?user=<%= JSON.stringify(user) %>"><i class="fas fa-book-reader"></i>library</a></li>
+        <li><a href="/study_planner?user=<%= JSON.stringify(user) %>"><i class="fas fa-project-diagram"></i>Study Planner</a></li>
+        <li><a href="/budget_tracker?user=<%= JSON.stringify(user) %>"><i class="fas fa-balance-scale"></i>budget tracker</a></li>
+        <li><a href="/flash_cards?user=<%= JSON.stringify(user) %>"><i class="fas fa-star"></i>Flash Cards</a></li>
+      </ul>
+      <div class="social_media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+
+    </div>
+
+    <div class="main_content">
+      
+    <div class="folders-container">
+        <% if (decks.length > 0) { %>
+          <ul>
+            <% decks.forEach(deck => { %>
+              <li>
+                <a href="/deck?user=<%= encodeURIComponent(JSON.stringify(user)) %>&deck=<%= encodeURIComponent(JSON.stringify(deck)) %>">
+                  <i class="fas fa-folder"></i><%= deck.deck_name %>
+                </a>
+              </li>
+            <% }) %>
+          </ul> 
+        <% } else { %>
+          <p>You don't have any decks yet.</p>
+        <% } %>
+    </div>
+     
+
+    <form id="createDeckForm" action="/create_deck?user=<%= JSON.stringify(user) %>" method="POST">
+     
+      <button type="button" id="addDeckButton" class="add-btn">+</button>
+    </form>
+    </div>
+  </div>
+
+</body>
+    
+   
+    
+    <script>
+      const createDeckForm = document.getElementById('createDeckForm');
+
+createDeckForm.addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent default form submission
+  
+  const deckNameInput = document.getElementById('deckName');
+  const deckName = deckNameInput.value.trim();
+  
+  if (deckName) {
+    const newDeck = document.createElement('li');
+    const newDeckLink = document.createElement('a');
+    const newDeckIcon = document.createElement('i');
+    
+    newDeckIcon.classList.add('fas', 'fa-folder');
+    newDeckLink.appendChild(newDeckIcon);
+    newDeckLink.appendChild(document.createTextNode(deckName));
+    newDeckLink.href = "#"; // Set href to "#" temporarily
+    newDeck.appendChild(newDeckLink);
+    
+    document.querySelector('.folders-container ul').appendChild(newDeck);
+    
+    // Clear input field after adding the deck
+    deckNameInput.value = '';
+  } else {
+    alert('Please enter a valid deck name.');
+  }
+});
+const addDeckButton = document.getElementById('addDeckButton');
+
+addDeckButton.addEventListener('click', () => {
+  const deckName = prompt("Enter deck name:");
+  if (deckName) {
+    const deckNameInput = document.createElement('input');
+    deckNameInput.type = 'hidden';
+    deckNameInput.name = 'DeckName';
+    deckNameInput.id = 'DeckName';
+    deckNameInput.value = deckName;
+    
+    const createDeckForm = document.getElementById('createDeckForm');
+    createDeckForm.appendChild(deckNameInput);
+    createDeckForm.submit();
+  }
+});
+
+</script>
+</html>
+

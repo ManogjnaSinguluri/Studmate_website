@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/*body {
+  background-color: #f3f5f9;
+}*/
+
+.wrapper {
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar {
+  width: 200px;
+  height: 100%;
+  background: #4b4276;
+  padding: 30px 0px;
+  position: fixed;
+}
+
+.wrapper .sidebar h2 {
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li {
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer; /* Add cursor pointer for hover effect on sidebar links */
+}
+
+.wrapper .sidebar ul li a {
+  color: #bdb8d7;
+  display: block;
+}
+
+.wrapper .sidebar ul li.active a {  /* Style for active sidebar link */
+  color: #fff;
+}
+
+.wrapper .sidebar ul li.active {  /* Style for active sidebar link background */
+  background-color: #594f8d;
+}
+
+.wrapper .sidebar ul li:hover {
+  background-color: #594f8d;
+}
+
+.wrapper .sidebar ul li:hover a {
+  color: #fff;
+}
+
+.wrapper .sidebar .social_media {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .sidebar .social_media a {
+  display: block;
+  width: 40px;
+  background: #594f8d;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #bdb8d7;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/*.wrapper .main_content {
+  width: 100%;
+  margin-left: 200px;
+  padding: 20px;
+}*/
+
+.wrapper .main_content .header {
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+  padding: 15px;
+}
+
+.wrapper .main_content .info {
+  margin: 20px;
+  color: #717171;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div {
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  position: fixed;
+  /* Position the button relative to the viewport */
+  top: 10px;
+  /* Adjust as needed */
+  right: 20px;
+  /* Adjust as needed */
+  padding: 10px 20px;
+  background-color: #594f8d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 999;
+  /* Ensure the button is above other elements */
+}
+
+@media (max-height: 500px) {
+  .social_media {
+    display: none !important;
+  }
+}
+
+.profile-box {
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-box h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.profile-box .info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-box .info i {
+  font-size: 20px;
+  margin-right: 10px;
+  color: #4b4276;
+}
+
+.profile-box .info span {
+  font-weight: bold;
+}
+
+/* Folder list styling */
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper .main_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.wrapper .main_content .header {
+  margin-bottom: 20px;
+}
+
+.wrapper .main_content .header h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.wrapper .main_content .folders-container {
+  margin-top: 20px;
+}
+
+.wrapper .main_content .folders-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper .main_content .folders-container ul li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.wrapper .main_content .folders-container ul li:last-child {
+  border-bottom: none;
+}
+
+.wrapper .main_content .folders-container ul li a {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  color: #333;
+}
+
+.wrapper .main_content .folders-container ul li a i {
+  margin-right: 10px;
+}
+
+.wrapper .main_content .add-folder-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+/* Media query for smaller screens */
+
+@media (max-width: 768px) {
+  .wrapper .sidebar {
+    width: 180px;
+  }
+
+  .wrapper .main_content {
+    margin-left: 180px;
+  }
+}
+  </style>
+  <link rel="stylesheet" href="https://kit.fontawesome.com/b99e675b6e.js">  <title>Studmate - Library</title> </head>
+<body>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Studmate</h2>
+      <ul>
+        <li><a href="/home?user=<%= JSON.stringify(user) %>"><i class="fas fa-home"></i>Home</a></li>
+        <li><a href="/profile?user=<%= JSON.stringify(user) %>"><i class="fas fa-user"></i>Profile</a></li>
+        <li><a href="/library?user=<%= JSON.stringify(user) %>"><i class="fas fa-book-reader"></i>library</a></li>
+        <li><a href="/study_planner?user=<%= JSON.stringify(user) %>"><i class="fas fa-project-diagram"></i>Study Planner</a></li>
+        <li><a href="/budget_tracker?user=<%= JSON.stringify(user) %>"><i class="fas fa-balance-scale"></i>budget tracker</a></li>
+        <li><a href="/flash_cards?user=<%= JSON.stringify(user) %>"><i class="fas fa-star"></i>Flash Cards</a></li>
+      </ul>
+      <div class="social_media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <!-- Assuming `enteredName` is passed as a variable to the template -->
+    <div class="main_content">
+      <div class="header">
+        <h2>Library</h2>
+      </div>
+  
+      <div class="folders-container">
+        <% if (folders.length > 0) { %>
+          <ul>
+            <% folders.forEach(folder => { %>
+              <li>
+                <a href="/folder?user=<%= encodeURIComponent(JSON.stringify(user)) %>&folder=<%= encodeURIComponent(JSON.stringify(folder)) %>">
+                  <i class="fas fa-folder"></i> <%= folder.folder_name %>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>You don't have any folders yet.</p>
+        <% } %>
+      </div>
+       <form id="createFolderForm" action="/create_folder?user=<%= JSON.stringify(user) %>" method="POST">
+       
+        <button id="addFolderButton" class="add-folder-btn">+</button>
+      </form>
+    </div>
+  </div>
+
+  </body>
+    <script>
+      const createFolderForm = document.getElementById('createFolderForm');
+  
+      const addFolderButton = document.getElementById('addFolderButton');
+      addFolderButton.addEventListener('click', () => {
+    const folderName = prompt('Enter the name of the folder:');
+    if (folderName) {
+      // Create a hidden input field to hold the folder name
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'folderName';
+      hiddenInput.value = folderName;
+      
+      // Append the hidden input to the form
+      createFolderForm.appendChild(hiddenInput);
+
+      // Submit the form
+      createFolderForm.submit();
+    }
+  });
+
+    // Move the "+" button dynamically
+    function moveAddButton() {
+      const formHeight = createFolderForm.clientHeight;
+      addFolderButton.style.marginTop = `${formHeight}px`;
+    }
+
+    moveAddButton();
+
+    window.addEventListener('resize', moveAddButton);
+    createFolderForm.addEventListener('submit', moveAddButton);
+    </script>
+  
+  </html>
